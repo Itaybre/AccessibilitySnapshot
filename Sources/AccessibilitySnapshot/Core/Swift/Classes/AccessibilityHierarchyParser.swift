@@ -76,7 +76,7 @@ public struct AccessibilityMarker {
 
 public protocol UserInterfaceLayoutDirectionProviding {
 
-    var userInterfaceLayoutDirection: UIUserInterfaceLayoutDirection { get }
+  @MainActor var userInterfaceLayoutDirection: UIUserInterfaceLayoutDirection { get }
 
 }
 
@@ -169,7 +169,7 @@ public final class AccessibilityHierarchyParser {
     /// relative to this view's coordinate space.
     /// - parameter userInterfaceLayoutDirectionProvider: The provider of the device's user interface layout direction.
     /// In most cases, this should use the default value, `UIApplication.shared`.
-    public func parseAccessibilityElements(
+    @MainActor public func parseAccessibilityElements(
         in root: UIView,
         userInterfaceLayoutDirectionProvider: UserInterfaceLayoutDirectionProviding = UIApplication.shared
     ) -> [AccessibilityMarker] {
@@ -271,7 +271,7 @@ public final class AccessibilityHierarchyParser {
     /// this should typically be `false`.
     /// - parameter root: The root view to which the nodes' shapes are relative.
     /// - parameter userInterfaceLayoutDirection: The device's current user interface layout direction.
-    private func sortedElements(
+  @MainActor private func sortedElements(
         for nodes: [AccessibilityNode],
         explicitlyOrdered: Bool,
         in root: UIView,
@@ -337,7 +337,7 @@ public final class AccessibilityHierarchyParser {
     }
 
     /// Returns the bounding box of the accessibility node in the root view's coordinate space.
-    private func accessibilityBoundingBox(for node: AccessibilityNode, in root: UIView) -> CGRect {
+  @MainActor private func accessibilityBoundingBox(for node: AccessibilityNode, in root: UIView) -> CGRect {
         switch node {
         case let .element(frameProvider, _),
              let .group(_, _, frameProvider?):
@@ -355,7 +355,7 @@ public final class AccessibilityHierarchyParser {
     }
 
     /// Returns the shape of the accessibility element in the root view's coordinate space.
-    private func accessibilityShape(for element: NSObject, in root: UIView) -> AccessibilityMarker.Shape {
+  @MainActor private func accessibilityShape(for element: NSObject, in root: UIView) -> AccessibilityMarker.Shape {
         if let accessibilityPath = element.accessibilityPath {
             return .path(root.convert(accessibilityPath, from: nil))
 
@@ -368,7 +368,7 @@ public final class AccessibilityHierarchyParser {
     }
 
     /// Returns the default value for an element's `accessibilityActivationPoint`.
-    private func defaultActivationPoint(for element: NSObject) -> CGPoint {
+  @MainActor private func defaultActivationPoint(for element: NSObject) -> CGPoint {
         if let element = element as? UISlider {
             let bounds = element.bounds
             let trackRect = element.trackRect(forBounds: bounds)
@@ -385,7 +385,7 @@ public final class AccessibilityHierarchyParser {
     }
 
     /// Returns the context for an `element` provided by the `contextProvider`.
-    private func context(
+  @MainActor private func context(
         for element: NSObject,
         from contextProvider: ContextProvider?,
         userInterfaceLayoutDirection: UIUserInterfaceLayoutDirection
@@ -586,7 +586,7 @@ private extension NSObject {
     ///
     /// Note that the order the nodes are returned in does not reflect the order that VoiceOver will iterate through
     /// them.
-    func recursiveAccessibilityHierarchy(
+  @MainActor func recursiveAccessibilityHierarchy(
         contextProvider: AccessibilityHierarchyParser.ContextProvider? = nil
     ) -> [AccessibilityNode] {
         guard !accessibilityElementsHidden else {
@@ -657,7 +657,7 @@ private extension NSObject {
     ///
     /// Some elements can provide context in multiple roles, which can be differentiated using the
     /// `providedContextAsSuperview()` and `providedContextAsContainer()` methods.
-    private var providesContext: Bool {
+  @MainActor private var providesContext: Bool {
         return self is UISegmentedControl
             || self is UITabBar
             || accessibilityTraits.contains(.tabBar)
@@ -668,7 +668,7 @@ private extension NSObject {
 
     /// The form of context provider the object acts as for elements beneath it in the hierarchy when the elements
     /// beneath it are part of the view hierarchy and the object is not an accessibility container.
-    private func providedContextAsSuperview() -> AccessibilityHierarchyParser.ContextProvider {
+  @MainActor private func providedContextAsSuperview() -> AccessibilityHierarchyParser.ContextProvider {
         if accessibilityContainerType == .dataTable, let self = self as? UIAccessibilityContainerDataTable {
             return .dataTable(self)
         }
@@ -678,7 +678,7 @@ private extension NSObject {
 
     /// The form of context provider the object acts as for elements beneath it in the hierarchy when the object is
     /// being used as an accessibility container.
-    private func providedContextAsContainer() -> AccessibilityHierarchyParser.ContextProvider {
+  @MainActor private func providedContextAsContainer() -> AccessibilityHierarchyParser.ContextProvider {
         if accessibilityContainerType == .dataTable, let self = self as? UIAccessibilityContainerDataTable {
             return .dataTable(self)
         }
@@ -686,7 +686,7 @@ private extension NSObject {
         return .accessibilityContainer(self)
     }
 
-    private func overridesElementFrame(with contextProvider: AccessibilityHierarchyParser.ContextProvider?) -> Bool {
+  @MainActor private func overridesElementFrame(with contextProvider: AccessibilityHierarchyParser.ContextProvider?) -> Bool {
         guard let contextProvider = contextProvider else {
             return false
         }
@@ -748,7 +748,7 @@ fileprivate extension NSObject {
         return []
     }
 
-    var identifier: String? {
+  @MainActor var identifier: String? {
         // The `accessibilityIdentifier` property is part of the `UIAccessibilityIdentification` protocol,
         // distinct from other accessibility properties in UIKit.
         if let idProtocol = self as? UIAccessibilityIdentification {

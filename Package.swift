@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -46,6 +46,7 @@ let package = Package(
             path: "Sources/AccessibilitySnapshot/Core/ObjC"
         ),
         .target(
+          
             name: "AccessibilitySnapshotCore",
             dependencies: ["AccessibilitySnapshotCore-ObjC"],
             path: "Sources/AccessibilitySnapshot/Core/Swift"
@@ -65,5 +66,6 @@ let package = Package(
             dependencies: ["AccessibilitySnapshotCore", "iOSSnapshotTestCase", "FBSnapshotTestCase+Accessibility"],
             path: "Sources/AccessibilitySnapshot/iOSSnapshotTestCase/ObjC"
         ),
-    ]
+    ],
+    swiftLanguageVersions: [.v6]
 )

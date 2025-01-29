@@ -18,7 +18,7 @@ import Foundation
 
 extension String {
 
-    func localized(key: String, comment: String, locale: String?, file: StaticString = #file) -> String {
+  @MainActor func localized(key: String, comment: String, locale: String?, file: StaticString = #file) -> String {
         let bundle = StringLocalization.preferredBundle(for: locale)
 
         return bundle.localizedString(forKey: key, value: self, table: nil)
@@ -32,7 +32,7 @@ private enum StringLocalization {
 
     // MARK: - Private Static Properties
 
-    private static var localeToBundleMap: [String: Bundle] = [:]
+    @MainActor private static var localeToBundleMap: [String: Bundle] = [:]
 
     private static let resourceBundle: Bundle = {
         #if SWIFT_PACKAGE
@@ -54,7 +54,7 @@ private enum StringLocalization {
 
     // MARK: - Public Static Methods
 
-    static func preferredBundle(for locale: String?) -> Bundle {
+  @MainActor static func preferredBundle(for locale: String?) -> Bundle {
         guard let locale = locale else {
             return resourceBundle
         }

@@ -50,7 +50,7 @@ extension FBSnapshotTestCase {
     /// Control).
     /// - parameter file: The file in which the test result should be attributed.
     /// - parameter line: The line in which the test result should be attributed.
-    public func SnapshotVerifyAccessibility<View: SwiftUI.View>(
+  @MainActor public func SnapshotVerifyAccessibility<View: SwiftUI.View>(
         _ view: View,
         size: CGSize? = nil,
         identifier: String = "",
@@ -92,7 +92,7 @@ extension FBSnapshotTestCase {
     /// directory. Defaults to `FBSnapshotTestCaseDefaultSuffixes()`.
     /// - parameter file: The file in which the test result should be attributed.
     /// - parameter line: The line in which the test result should be attributed.
-    public func SnapshotVerifyWithInvertedColors<View: SwiftUI.View>(
+  @MainActor public func SnapshotVerifyWithInvertedColors<View: SwiftUI.View>(
         _ view: View,
         size: CGSize? = nil,
         identifier: String = "",

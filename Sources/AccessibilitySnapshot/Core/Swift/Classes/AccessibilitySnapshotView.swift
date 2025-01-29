@@ -476,7 +476,7 @@ private extension AccessibilitySnapshotView {
 
         private enum Strings {
 
-            static func actionsAvailableText(for locale: String?) -> String {
+          @MainActor static func actionsAvailableText(for locale: String?) -> String {
                 return "Actions Available".localized(
                     key: "custom_actions.description",
                     comment: "Description for an accessibility element indicating that it has custom actions available",
@@ -484,7 +484,7 @@ private extension AccessibilitySnapshotView {
                 )
             }
             
-            static func moreContentAvailableText(for locale: String?) -> String {
+          @MainActor static func moreContentAvailableText(for locale: String?) -> String {
                 return "More Content Available".localized(
                     key: "custom_content.description",
                     comment: "Description for an accessibility element indicating that it has additional custom content available",
@@ -785,6 +785,7 @@ private extension Bundle {
 
     private final class Sentinel {}
 
+    @MainActor
     static var accessibilitySnapshotResources: Bundle = {
         #if SWIFT_PACKAGE
         return Bundle.module

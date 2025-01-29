@@ -51,6 +51,7 @@ public enum HitTargetSnapshotUtility {
     /// Value must be a positive integer.
     /// - parameter maxPermissibleMissedRegionHeight: The maximum height for which it is permissible to "miss" a view.
     /// Value must be a positive integer.
+    @MainActor
     public static func generateSnapshotImage(
         for view: UIView,
         useMonochromeSnapshot: Bool,
@@ -132,7 +133,7 @@ public enum HitTargetSnapshotUtility {
             // future), we can avoid this rounding problem.
             let stopEpsilon: CGFloat = 0.0001
 
-            func scanLine(y: CGFloat) -> ScanLine {
+            @MainActor func scanLine(y: CGFloat) -> ScanLine {
                 var scanLine: ScanLine = []
                 var lastHit: (CGFloat, UIView?) = (
                     bounds.minX,

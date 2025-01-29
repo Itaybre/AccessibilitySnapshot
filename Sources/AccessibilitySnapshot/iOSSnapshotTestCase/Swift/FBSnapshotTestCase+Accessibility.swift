@@ -53,7 +53,7 @@ extension FBSnapshotTestCase {
     /// Control).
     /// - parameter file: The file in which the test result should be attributed.
     /// - parameter line: The line in which the test result should be attributed.
-    public func SnapshotVerifyAccessibility(
+  @MainActor public func SnapshotVerifyAccessibility(
         _ view: UIView,
         identifier: String = "",
         showActivationPoints activationPointDisplayMode: ActivationPointDisplayMode = .whenOverridden,
@@ -105,7 +105,7 @@ extension FBSnapshotTestCase {
     /// directory. Defaults to `FBSnapshotTestCaseDefaultSuffixes()`.
     /// - parameter file: The file in which the test result should be attributed.
     /// - parameter line: The line in which the test result should be attributed.
-    public func SnapshotVerifyWithInvertedColors(
+  @MainActor public func SnapshotVerifyWithInvertedColors(
         _ view: UIView,
         identifier: String = "",
         suffixes: NSOrderedSet = FBSnapshotTestCaseDefaultSuffixes(),
@@ -185,7 +185,7 @@ extension FBSnapshotTestCase {
     /// directory. Defaults to `FBSnapshotTestCaseDefaultSuffixes()`.
     /// - parameter file: The file in which the test result should be attributed.
     /// - parameter line: The line in which the test result should be attributed.
-    public func SnapshotVerifyWithHitTargets(
+  @MainActor public func SnapshotVerifyWithHitTargets(
         _ view: UIView,
         identifier: String = "",
         useMonochromeSnapshot: Bool = true,
@@ -213,7 +213,7 @@ extension FBSnapshotTestCase {
 
     // MARK: - Internal Properties
 
-    var isRunningInHostApplication: Bool {
+  @MainActor var isRunningInHostApplication: Bool {
         // The tests must be run in a host application in order for the accessibility properties to be populated
         // correctly. The `UIApplication.shared` singleton is non-optional, but will be uninitialized when the tests are
         // running outside of a host application, so we can use this check to determine whether we have a test host.

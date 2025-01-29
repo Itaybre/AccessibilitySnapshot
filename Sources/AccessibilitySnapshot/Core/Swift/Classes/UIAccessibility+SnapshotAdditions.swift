@@ -19,7 +19,7 @@ import UIKit
 extension NSObject {
 
     /// Returns a tuple consisting of the `description` and (optionally) a `hint` that VoiceOver will read for the object.
-    func accessibilityDescription(context: AccessibilityHierarchyParser.Context?) -> (description: String, hint: String?) {
+  @MainActor func accessibilityDescription(context: AccessibilityHierarchyParser.Context?) -> (description: String, hint: String?) {
         var accessibilityDescription = accessibilityLabelOverride(for: context) ?? accessibilityLabel ?? ""
 
         var hintDescription = accessibilityHint?.nonEmpty()
@@ -290,7 +290,7 @@ extension NSObject {
         }
     }
 
-    private func hidesAccessibilityValue(for context: AccessibilityHierarchyParser.Context?) -> Bool {
+  @MainActor private func hidesAccessibilityValue(for context: AccessibilityHierarchyParser.Context?) -> Bool {
         if accessibilityTraits.contains(.switchButton) {
             return true
         }
@@ -384,7 +384,7 @@ extension NSObject {
 
         // MARK: - Life Cycle
 
-        init(locale: String?) {
+      @MainActor init(locale: String?) {
             self.selectedTraitName = "Selected.".localized(
                 key: "trait.selected.description",
                 comment: "Description for the 'selected' accessibility trait",

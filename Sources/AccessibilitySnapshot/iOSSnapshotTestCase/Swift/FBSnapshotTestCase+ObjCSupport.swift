@@ -24,7 +24,7 @@ import FBSnapshotTestCase
 
 extension FBSnapshotTestCase {
 
-    @objc(snapshotVerifyAccessibility:identifier:perPixelTolerance:overallTolerance:)
+  @MainActor @objc(snapshotVerifyAccessibility:identifier:perPixelTolerance:overallTolerance:)
     private func 🚫objc_snapshotVerifyAccessibility(
         _ view: UIView,
         identifier: String,
@@ -42,7 +42,7 @@ extension FBSnapshotTestCase {
         )
     }
 
-    @objc(snapshotVerifyAccessibility:identifier:showActivationPoints:useMonochromeSnapshot:perPixelTolerance:overallTolerance:showUserInputLabels:)
+  @MainActor @objc(snapshotVerifyAccessibility:identifier:showActivationPoints:useMonochromeSnapshot:perPixelTolerance:overallTolerance:showUserInputLabels:)
     private func 🚫objc_snapshotVerifyAccessibility(
         _ view: UIView,
         identifier: String,
@@ -63,7 +63,7 @@ extension FBSnapshotTestCase {
         )
     }
 
-    @nonobjc
+  @MainActor @nonobjc
     internal func snapshotVerifyAccessibility(
         _ view: UIView,
         identifier: String,
@@ -108,7 +108,7 @@ extension FBSnapshotTestCase {
         )
     }
 
-    @objc(snapshotVerifyWithInvertedColors:identifier:perPixelTolerance:overallTolerance:)
+  @MainActor @objc(snapshotVerifyWithInvertedColors:identifier:perPixelTolerance:overallTolerance:)
     private func snapshotVerifyWithInvertedColors(
         _ view: UIView,
         identifier: String,
@@ -161,7 +161,7 @@ extension FBSnapshotTestCase {
         return errorDescription
     }
 
-    @objc(snapshotVerifyWithHitTargets:identifier:useMonochromeSnapshot:maxPermissibleMissedRegionWidth:maxPermissibleMissedRegionHeight:perPixelTolerance:overallTolerance:)
+  @MainActor @objc(snapshotVerifyWithHitTargets:identifier:useMonochromeSnapshot:maxPermissibleMissedRegionWidth:maxPermissibleMissedRegionHeight:perPixelTolerance:overallTolerance:)
     private func snapshotVerifyWithHitTargets(
         _ view: UIView,
         identifier: String,

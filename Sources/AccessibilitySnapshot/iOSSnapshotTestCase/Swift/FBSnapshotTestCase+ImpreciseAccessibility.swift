@@ -62,7 +62,7 @@ extension FBSnapshotTestCase {
     /// - parameter showUserInputLabels: Controls when to show elements' accessibility user input labels (used by Voice Control).
     /// - parameter file: The file in which the test result should be attributed.
     /// - parameter line: The line in which the test result should be attributed.
-    public func SnapshotImpreciseVerifyAccessibility(
+  @MainActor public func SnapshotImpreciseVerifyAccessibility(
         _ view: UIView,
         identifier: String = "",
         showActivationPoints activationPointDisplayMode: ActivationPointDisplayMode = .whenOverridden,
@@ -134,7 +134,7 @@ extension FBSnapshotTestCase {
     /// where `0` means no pixels may change and `1` means all pixels may change.
     /// - parameter file: The file in which the test result should be attributed.
     /// - parameter line: The line in which the test result should be attributed.
-    public func SnapshotImpreciseVerifyWithInvertedColors(
+  @MainActor public func SnapshotImpreciseVerifyWithInvertedColors(
         _ view: UIView,
         identifier: String = "",
         suffixes: NSOrderedSet = FBSnapshotTestCaseDefaultSuffixes(),
@@ -222,7 +222,7 @@ extension FBSnapshotTestCase {
     /// where `0` means no pixels may change and `1` means all pixels may change.
     /// - parameter file: The file in which the test result should be attributed.
     /// - parameter line: The line in which the test result should be attributed.
-    public func SnapshotImpreciseVerifyWithHitTargets(
+  @MainActor public func SnapshotImpreciseVerifyWithHitTargets(
         _ view: UIView,
         identifier: String = "",
         useMonochromeSnapshot: Bool = true,
